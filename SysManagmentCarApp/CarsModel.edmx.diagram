@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="18032c93a8ab481eba26b8b4f2672c1f" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="GarageDBModel.Cars" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarageDBModel.Clientes" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarageDBModel.Employess" Width="1.5" PointX="5.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GarageDBModel.Orders" Width="1.5" PointX="6.875" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="GarageDBModel.FK__Clientes__VinNum__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="GarageDBModel.FK__Orders__VinNumbe__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="GarageDBModel.FK__Orders__IdClient__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="GarageDBModel.FK__Orders__IdEmp__5535A963" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="GarageDBModel.FeaturesCars" Width="1.5" PointX="3" PointY="5.125" />
+        <AssociationConnector Association="GarageDBModel.FK__FeaturesC__VinNu__4BAC3F29" />
+        <EntityTypeShape EntityType="GarageDBModel.History" Width="1.5" PointX="10.125" PointY="5" />
+        <AssociationConnector Association="GarageDBModel.FK__History__idVin__70DDC3D8" />
+        <AssociationConnector Association="GarageDBModel.FK__History__idEmplo__71D1E811" />
+        <AssociationConnector Association="GarageDBModel.FK__History__idFeatu__72C60C4A" />
+        <AssociationConnector Association="GarageDBModel.FK__History__idORDER__6FE99F9F" />
+        <EntityTypeShape EntityType="GarageDBModel.NewEmployee" Width="1.5" PointX="8" PointY="9" />
+        <AssociationConnector Association="GarageDBModel.FK__NewEmploy__idEmp__05D8E0BE" />
+        <EntityTypeShape EntityType="GarageDBModel.ViewJob" Width="1.5" PointX="12.125" PointY="3" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

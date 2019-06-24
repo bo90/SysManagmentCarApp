@@ -1,0 +1,728 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище GarageDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cars">
+          <Key>
+            <PropertyRef Name="VinNumber" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VinNumber" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="GosNumber" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Model" Type="varchar" MaxLength="100" />
+          <Property Name="Mark" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="VinNumber" Type="varchar" MaxLength="50" />
+          <Property Name="fName" Type="varchar" MaxLength="100" />
+          <Property Name="sName" Type="varchar" MaxLength="50" />
+          <Property Name="city" Type="varchar" MaxLength="150" />
+          <Property Name="telephonNumber" Type="varchar" MaxLength="50" />
+          <Property Name="mail" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Employess">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="NameEmp" Type="varchar" MaxLength="255" />
+          <Property Name="sNameEnp" Type="varchar" MaxLength="255" />
+          <Property Name="profession" Type="varchar" MaxLength="150" />
+          <Property Name="yearBorn" Type="date" />
+        </EntityType>
+        <EntityType Name="FeaturesCars">
+          <Key>
+            <PropertyRef Name="PTC_number" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="VinNumber" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PTC_number" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Color" Type="varchar" MaxLength="25" />
+          <Property Name="EngienPower" Type="float" />
+          <Property Name="TypeEngien" Type="varchar" MaxLength="25" />
+          <Property Name="VolumeEngien" Type="float" />
+          <Property Name="TypeDriveMachine" Type="varchar" MaxLength="50" />
+          <Property Name="TypeFrame" Type="varchar" MaxLength="50" />
+          <Property Name="Category" Type="char" MaxLength="5" />
+          <Property Name="Age" Type="int" />
+        </EntityType>
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="idORDER" Type="int" Nullable="false" />
+          <Property Name="idVin" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idEmployees" Type="int" Nullable="false" />
+          <Property Name="idFeatures" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateHistory" Type="date" />
+          <Property Name="EventHistory" Type="varchar" MaxLength="255" />
+          <Property Name="Result" Type="bit" />
+          <Property Name="Descript" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="NewEmployee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="idEmp" Type="int" Nullable="false" />
+          <Property Name="nameEmp" Type="varchar" MaxLength="255" />
+          <Property Name="sName" Type="varchar" MaxLength="255" />
+          <Property Name="enducation" Type="varchar" MaxLength="255" />
+          <Property Name="enduPlace" Type="varchar" MaxLength="255" />
+          <Property Name="originCity" Type="varchar" MaxLength="255" />
+          <Property Name="age" Type="date" />
+          <Property Name="profession" Type="varchar" MaxLength="255" />
+          <Property Name="telephone" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="IdOrder" Type="int" Nullable="false" />
+          <Property Name="Descript" Type="varchar" MaxLength="255" />
+          <Property Name="DateBegin" Type="date" />
+          <Property Name="DateEnd" Type="date" />
+          <Property Name="timeStart" Type="time" Precision="7" />
+          <Property Name="TimeEnd" Type="time" Precision="7" />
+          <Property Name="VinNumber" Type="varchar" MaxLength="50" />
+          <Property Name="IdClient" Type="int" Nullable="false" />
+          <Property Name="IdEmp" Type="int" />
+        </EntityType>
+        <EntityType Name="ViewJob">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="viewJob" Type="varchar" MaxLength="255" />
+          <Property Name="descript" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK__Clientes__VinNum__4E88ABD4">
+          <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="VinNumber" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="VinNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FeaturesC__VinNu__4BAC3F29">
+          <End Role="Cars" Type="Self.Cars" Multiplicity="1" />
+          <End Role="FeaturesCars" Type="Self.FeaturesCars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="VinNumber" />
+            </Principal>
+            <Dependent Role="FeaturesCars">
+              <PropertyRef Name="VinNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__History__idEmplo__71D1E811">
+          <End Role="Employess" Type="Self.Employess" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="History" Type="Self.History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employess">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="idEmployees" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__History__idFeatu__72C60C4A">
+          <End Role="FeaturesCars" Type="Self.FeaturesCars" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="History" Type="Self.History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FeaturesCars">
+              <PropertyRef Name="PTC_number" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="idFeatures" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__History__idORDER__6FE99F9F">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="History" Type="Self.History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="idORDER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__History__idVin__70DDC3D8">
+          <End Role="Cars" Type="Self.Cars" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="History" Type="Self.History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="VinNumber" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="idVin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NewEmploy__idEmp__05D8E0BE">
+          <End Role="Employess" Type="Self.Employess" Multiplicity="1" />
+          <End Role="NewEmployee" Type="Self.NewEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employess">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NewEmployee">
+              <PropertyRef Name="idEmp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__IdClient__5441852A">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="IdClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__IdEmp__5535A963">
+          <End Role="Employess" Type="Self.Employess" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employess">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="IdEmp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__VinNumbe__534D60F1">
+          <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="VinNumber" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="VinNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище GarageDBModelContainer">
+          <EntitySet Name="Cars" EntityType="Self.Cars" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employess" EntityType="Self.Employess" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FeaturesCars" EntityType="Self.FeaturesCars" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="History" EntityType="Self.History" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewEmployee" EntityType="Self.NewEmployee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ViewJob" EntityType="Self.ViewJob" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Clientes__VinNum__4E88ABD4" Association="Self.FK__Clientes__VinNum__4E88ABD4">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FeaturesC__VinNu__4BAC3F29" Association="Self.FK__FeaturesC__VinNu__4BAC3F29">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="FeaturesCars" EntitySet="FeaturesCars" />
+          </AssociationSet>
+          <AssociationSet Name="FK__History__idEmplo__71D1E811" Association="Self.FK__History__idEmplo__71D1E811">
+            <End Role="Employess" EntitySet="Employess" />
+            <End Role="History" EntitySet="History" />
+          </AssociationSet>
+          <AssociationSet Name="FK__History__idFeatu__72C60C4A" Association="Self.FK__History__idFeatu__72C60C4A">
+            <End Role="FeaturesCars" EntitySet="FeaturesCars" />
+            <End Role="History" EntitySet="History" />
+          </AssociationSet>
+          <AssociationSet Name="FK__History__idORDER__6FE99F9F" Association="Self.FK__History__idORDER__6FE99F9F">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="History" EntitySet="History" />
+          </AssociationSet>
+          <AssociationSet Name="FK__History__idVin__70DDC3D8" Association="Self.FK__History__idVin__70DDC3D8">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="History" EntitySet="History" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NewEmploy__idEmp__05D8E0BE" Association="Self.FK__NewEmploy__idEmp__05D8E0BE">
+            <End Role="Employess" EntitySet="Employess" />
+            <End Role="NewEmployee" EntitySet="NewEmployee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__IdClient__5441852A" Association="Self.FK__Orders__IdClient__5441852A">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__IdEmp__5535A963" Association="Self.FK__Orders__IdEmp__5535A963">
+            <End Role="Employess" EntitySet="Employess" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__VinNumbe__534D60F1" Association="Self.FK__Orders__VinNumbe__534D60F1">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GarageDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cars">
+          <Key>
+            <PropertyRef Name="VinNumber" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VinNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GosNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Model" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Mark" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK__Clientes__VinNum__4E88ABD4" FromRole="Cars" ToRole="Clientes" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__VinNumbe__534D60F1" FromRole="Cars" ToRole="Orders" />
+          <NavigationProperty Name="FeaturesCars" Relationship="GarageDBModel.FK__FeaturesC__VinNu__4BAC3F29" FromRole="Cars" ToRole="FeaturesCars" />
+          <NavigationProperty Name="History" Relationship="GarageDBModel.FK__History__idVin__70DDC3D8" FromRole="Cars" ToRole="History" />
+        </EntityType>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="VinNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="sName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="telephonNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="mail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cars" Relationship="Self.FK__Clientes__VinNum__4E88ABD4" FromRole="Clientes" ToRole="Cars" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__IdClient__5441852A" FromRole="Clientes" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Employess">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="NameEmp" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="sNameEnp" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="profession" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="yearBorn" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__IdEmp__5535A963" FromRole="Employess" ToRole="Orders" />
+          <NavigationProperty Name="History" Relationship="GarageDBModel.FK__History__idEmplo__71D1E811" FromRole="Employess" ToRole="History" />
+          <NavigationProperty Name="NewEmployee" Relationship="GarageDBModel.FK__NewEmploy__idEmp__05D8E0BE" FromRole="Employess" ToRole="NewEmployee" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="IdOrder" Type="Int32" Nullable="false" />
+          <Property Name="Descript" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DateBegin" Type="DateTime" Precision="0" />
+          <Property Name="DateEnd" Type="DateTime" Precision="0" />
+          <Property Name="timeStart" Type="Time" Precision="7" />
+          <Property Name="TimeEnd" Type="Time" Precision="7" />
+          <Property Name="VinNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdClient" Type="Int32" Nullable="false" />
+          <Property Name="IdEmp" Type="Int32" />
+          <NavigationProperty Name="Cars" Relationship="Self.FK__Orders__VinNumbe__534D60F1" FromRole="Orders" ToRole="Cars" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK__Orders__IdClient__5441852A" FromRole="Orders" ToRole="Clientes" />
+          <NavigationProperty Name="Employess" Relationship="Self.FK__Orders__IdEmp__5535A963" FromRole="Orders" ToRole="Employess" />
+          <NavigationProperty Name="History" Relationship="GarageDBModel.FK__History__idORDER__6FE99F9F" FromRole="Orders" ToRole="History" />
+        </EntityType>
+        <Association Name="FK__Clientes__VinNum__4E88ABD4">
+          <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="VinNumber" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="VinNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__VinNumbe__534D60F1">
+          <End Role="Cars" Type="Self.Cars" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="VinNumber" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="VinNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__IdClient__5441852A">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="IdClient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__IdEmp__5535A963">
+          <End Role="Employess" Type="Self.Employess" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employess">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="IdEmp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GarageDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cars" EntityType="Self.Cars" />
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+          <EntitySet Name="Employess" EntityType="Self.Employess" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <AssociationSet Name="FK__Clientes__VinNum__4E88ABD4" Association="Self.FK__Clientes__VinNum__4E88ABD4">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__VinNumbe__534D60F1" Association="Self.FK__Orders__VinNumbe__534D60F1">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__IdClient__5441852A" Association="Self.FK__Orders__IdClient__5441852A">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__IdEmp__5535A963" Association="Self.FK__Orders__IdEmp__5535A963">
+            <End Role="Employess" EntitySet="Employess" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <EntitySet Name="FeaturesCars" EntityType="GarageDBModel.FeaturesCars" />
+          <AssociationSet Name="FK__FeaturesC__VinNu__4BAC3F29" Association="GarageDBModel.FK__FeaturesC__VinNu__4BAC3F29">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="FeaturesCars" EntitySet="FeaturesCars" />
+          </AssociationSet>
+          <EntitySet Name="History" EntityType="GarageDBModel.History" />
+          <AssociationSet Name="FK__History__idVin__70DDC3D8" Association="GarageDBModel.FK__History__idVin__70DDC3D8">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="History" EntitySet="History" />
+          </AssociationSet>
+          <AssociationSet Name="FK__History__idEmplo__71D1E811" Association="GarageDBModel.FK__History__idEmplo__71D1E811">
+            <End Role="Employess" EntitySet="Employess" />
+            <End Role="History" EntitySet="History" />
+          </AssociationSet>
+          <AssociationSet Name="FK__History__idFeatu__72C60C4A" Association="GarageDBModel.FK__History__idFeatu__72C60C4A">
+            <End Role="FeaturesCars" EntitySet="FeaturesCars" />
+            <End Role="History" EntitySet="History" />
+          </AssociationSet>
+          <AssociationSet Name="FK__History__idORDER__6FE99F9F" Association="GarageDBModel.FK__History__idORDER__6FE99F9F">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="History" EntitySet="History" />
+          </AssociationSet>
+          <EntitySet Name="NewEmployee" EntityType="GarageDBModel.NewEmployee" />
+          <AssociationSet Name="FK__NewEmploy__idEmp__05D8E0BE" Association="GarageDBModel.FK__NewEmploy__idEmp__05D8E0BE">
+            <End Role="Employess" EntitySet="Employess" />
+            <End Role="NewEmployee" EntitySet="NewEmployee" />
+          </AssociationSet>
+          <EntitySet Name="ViewJob" EntityType="GarageDBModel.ViewJob" />
+        </EntityContainer>
+        <EntityType Name="FeaturesCars">
+          <Key>
+            <PropertyRef Name="PTC_number" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="VinNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PTC_number" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Color" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="EngienPower" Type="Double" />
+          <Property Name="TypeEngien" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="VolumeEngien" Type="Double" />
+          <Property Name="TypeDriveMachine" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TypeFrame" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Category" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="Age" Type="Int32" />
+          <NavigationProperty Name="Cars" Relationship="GarageDBModel.FK__FeaturesC__VinNu__4BAC3F29" FromRole="FeaturesCars" ToRole="Cars" />
+          <NavigationProperty Name="History" Relationship="GarageDBModel.FK__History__idFeatu__72C60C4A" FromRole="FeaturesCars" ToRole="History" />
+        </EntityType>
+        <Association Name="FK__FeaturesC__VinNu__4BAC3F29">
+          <End Type="GarageDBModel.Cars" Role="Cars" Multiplicity="1" />
+          <End Type="GarageDBModel.FeaturesCars" Role="FeaturesCars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="VinNumber" />
+            </Principal>
+            <Dependent Role="FeaturesCars">
+              <PropertyRef Name="VinNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="idORDER" Type="Int32" Nullable="false" />
+          <Property Name="idVin" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idEmployees" Type="Int32" Nullable="false" />
+          <Property Name="idFeatures" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateHistory" Type="DateTime" Precision="0" />
+          <Property Name="EventHistory" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Cars" Relationship="GarageDBModel.FK__History__idVin__70DDC3D8" FromRole="History" ToRole="Cars" />
+          <NavigationProperty Name="Employess" Relationship="GarageDBModel.FK__History__idEmplo__71D1E811" FromRole="History" ToRole="Employess" />
+          <NavigationProperty Name="FeaturesCars" Relationship="GarageDBModel.FK__History__idFeatu__72C60C4A" FromRole="History" ToRole="FeaturesCars" />
+          <NavigationProperty Name="Orders" Relationship="GarageDBModel.FK__History__idORDER__6FE99F9F" FromRole="History" ToRole="Orders" />
+          <Property Name="Result" Type="Boolean" />
+          <Property Name="Descript" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK__History__idVin__70DDC3D8">
+          <End Type="GarageDBModel.Cars" Role="Cars" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="GarageDBModel.History" Role="History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="VinNumber" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="idVin" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__History__idEmplo__71D1E811">
+          <End Type="GarageDBModel.Employess" Role="Employess" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="GarageDBModel.History" Role="History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employess">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="idEmployees" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__History__idFeatu__72C60C4A">
+          <End Type="GarageDBModel.FeaturesCars" Role="FeaturesCars" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="GarageDBModel.History" Role="History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FeaturesCars">
+              <PropertyRef Name="PTC_number" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="idFeatures" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__History__idORDER__6FE99F9F">
+          <End Type="GarageDBModel.Orders" Role="Orders" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="GarageDBModel.History" Role="History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="idORDER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="NewEmployee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="idEmp" Type="Int32" Nullable="false" />
+          <Property Name="nameEmp" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="sName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="enducation" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="enduPlace" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="originCity" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="age" Type="DateTime" Precision="0" />
+          <Property Name="profession" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employess" Relationship="GarageDBModel.FK__NewEmploy__idEmp__05D8E0BE" FromRole="NewEmployee" ToRole="Employess" />
+        </EntityType>
+        <Association Name="FK__NewEmploy__idEmp__05D8E0BE">
+          <End Type="GarageDBModel.Employess" Role="Employess" Multiplicity="1" />
+          <End Type="GarageDBModel.NewEmployee" Role="NewEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employess">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NewEmployee">
+              <PropertyRef Name="idEmp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ViewJob">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="viewJob1" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="descript" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище GarageDBModelContainer" CdmEntityContainer="GarageDBEntities">
+          <EntitySetMapping Name="Cars">
+            <EntityTypeMapping TypeName="GarageDBModel.Cars">
+              <MappingFragment StoreEntitySet="Cars">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="VinNumber" ColumnName="VinNumber" />
+                <ScalarProperty Name="GosNumber" ColumnName="GosNumber" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Mark" ColumnName="Mark" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="GarageDBModel.Clientes">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="VinNumber" ColumnName="VinNumber" />
+                <ScalarProperty Name="fName" ColumnName="fName" />
+                <ScalarProperty Name="sName" ColumnName="sName" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="telephonNumber" ColumnName="telephonNumber" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employess">
+            <EntityTypeMapping TypeName="GarageDBModel.Employess">
+              <MappingFragment StoreEntitySet="Employess">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NameEmp" ColumnName="NameEmp" />
+                <ScalarProperty Name="sNameEnp" ColumnName="sNameEnp" />
+                <ScalarProperty Name="profession" ColumnName="profession" />
+                <ScalarProperty Name="yearBorn" ColumnName="yearBorn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="GarageDBModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="IdOrder" ColumnName="IdOrder" />
+                <ScalarProperty Name="Descript" ColumnName="Descript" />
+                <ScalarProperty Name="DateBegin" ColumnName="DateBegin" />
+                <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+                <ScalarProperty Name="timeStart" ColumnName="timeStart" />
+                <ScalarProperty Name="TimeEnd" ColumnName="TimeEnd" />
+                <ScalarProperty Name="VinNumber" ColumnName="VinNumber" />
+                <ScalarProperty Name="IdClient" ColumnName="IdClient" />
+                <ScalarProperty Name="IdEmp" ColumnName="IdEmp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FeaturesCars">
+            <EntityTypeMapping TypeName="GarageDBModel.FeaturesCars">
+              <MappingFragment StoreEntitySet="FeaturesCars">
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="TypeFrame" ColumnName="TypeFrame" />
+                <ScalarProperty Name="TypeDriveMachine" ColumnName="TypeDriveMachine" />
+                <ScalarProperty Name="VolumeEngien" ColumnName="VolumeEngien" />
+                <ScalarProperty Name="TypeEngien" ColumnName="TypeEngien" />
+                <ScalarProperty Name="EngienPower" ColumnName="EngienPower" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="PTC_number" ColumnName="PTC_number" />
+                <ScalarProperty Name="VinNumber" ColumnName="VinNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="History">
+            <EntityTypeMapping TypeName="GarageDBModel.History">
+              <MappingFragment StoreEntitySet="History">
+                <ScalarProperty Name="Descript" ColumnName="Descript" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="EventHistory" ColumnName="EventHistory" />
+                <ScalarProperty Name="DateHistory" ColumnName="DateHistory" />
+                <ScalarProperty Name="idFeatures" ColumnName="idFeatures" />
+                <ScalarProperty Name="idEmployees" ColumnName="idEmployees" />
+                <ScalarProperty Name="idVin" ColumnName="idVin" />
+                <ScalarProperty Name="idORDER" ColumnName="idORDER" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewEmployee">
+            <EntityTypeMapping TypeName="GarageDBModel.NewEmployee">
+              <MappingFragment StoreEntitySet="NewEmployee">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+                <ScalarProperty Name="profession" ColumnName="profession" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="originCity" ColumnName="originCity" />
+                <ScalarProperty Name="enduPlace" ColumnName="enduPlace" />
+                <ScalarProperty Name="enducation" ColumnName="enducation" />
+                <ScalarProperty Name="sName" ColumnName="sName" />
+                <ScalarProperty Name="nameEmp" ColumnName="nameEmp" />
+                <ScalarProperty Name="idEmp" ColumnName="idEmp" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewJob">
+            <EntityTypeMapping TypeName="GarageDBModel.ViewJob">
+              <MappingFragment StoreEntitySet="ViewJob">
+                <ScalarProperty Name="descript" ColumnName="descript" />
+                <ScalarProperty Name="viewJob1" ColumnName="viewJob" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
